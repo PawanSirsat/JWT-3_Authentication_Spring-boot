@@ -18,18 +18,16 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
-    // http://localhost:8081/home/users
+    @RequestMapping("/go")
+    public String home() {
+    	System.out.println("Go");
+        return "Hello World!";
+    }
+    
     @GetMapping("/users")
     public List<Users> getUser() {
     	System.out.println("Users");
         return this.userService.getUsers();
-    }
-
-    @RequestMapping("/go")
-    public String home() {
-    	System.out.println("Go");
-
-        return "Hello World!";
     }
     
     @RequestMapping("/current-user")
