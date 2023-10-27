@@ -1,0 +1,21 @@
+/* Apply these styles to your main container */
+.main-container {
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  height: 100vh; /* Full viewport height */
+}
+
+/* Additional styles for the content within the main container */
+.content {
+  width: 300px; /* Adjust the width as needed */
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.mb-4 {
+  text-align: center;
+}

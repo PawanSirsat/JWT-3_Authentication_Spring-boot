@@ -4,17 +4,21 @@ import org.slf4j.Logger;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.jwt.example.jwtExample3.model.JwtRequest;
 import com.jwt.example.jwtExample3.model.JwtResponse;
@@ -24,10 +28,18 @@ import com.jwt.example.jwtExample3.security.JwtHelper;
 import com.jwt.example.jwtExample3.service.CustomerUserDetailService;
 import com.jwt.example.jwtExample3.service.UserService;
 
+@CrossOrigin
 @RestController
+@Configuration
 @RequestMapping("/auth")
-public class AuthController {
-
+public class AuthController implements WebMvcConfigurer {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:3000")  // Replace with the origin of your frontend app
+                .allowedMethods("GET", "POST", "PUT", "DELETE");
+    }
+	
     @Autowired
     private CustomerUserDetailService customerUserDetailService;
 
