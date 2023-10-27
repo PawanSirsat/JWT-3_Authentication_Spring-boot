@@ -26,19 +26,19 @@ class AppConfig {
 //
 //	}
 	
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user1 = User.builder().
-                username("pawan")
-                .password(passwordEncoder().encode("pawan456")).roles("ADMIN").
-                build();
-        UserDetails user2 = User.builder().
-                username("ankit")
-                .password(passwordEncoder().encode("ankit456")).roles("ADMIN").
-                build();
-
-        return new InMemoryUserDetailsManager(user1,user2);
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails user1 = User.builder().
+//                username("pawan")
+//                .password(passwordEncoder().encode("pawan456")).roles("ADMIN").
+//                build();
+//        UserDetails user2 = User.builder().
+//                username("ankit")
+//                .password(passwordEncoder().encode("ankit456")).roles("ADMIN").
+//                build();
+//
+//        return new InMemoryUserDetailsManager(user1,user2);
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
