@@ -16,7 +16,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.jwt.example.jwtExample3.model.Users;
 import com.jwt.example.jwtExample3.service.UserService;
 
-
 @CrossOrigin
 @Configuration
 @RestController
@@ -45,7 +44,7 @@ public class HomeController implements WebMvcConfigurer {
     }
 
     
-    @RequestMapping("/current-user")
+    @GetMapping("/current-user")
     public String getLoggedInUser(Principal principal)
     {
     	return principal.getName();
