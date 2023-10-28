@@ -23,7 +23,7 @@ const UserListPage = () => {
             console.log('200')
           }
         } else {
-          console.log('no tokken')
+          console.log('no token')
           navigate('/login')
         }
       } catch (error) {
@@ -36,13 +36,26 @@ const UserListPage = () => {
   }, [])
 
   return (
-    <div class='container'>
-      <h2>User List</h2>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>{user.email}</li>
-        ))}
-      </ul>
+    <div className='container d-flex justify-content-center align-items-center'>
+      <div className='text-center'>
+        <h2>User List</h2>
+        <table className='table'>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.userId}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

@@ -31,24 +31,27 @@ const Navigation = ({ isAuthenticated, onLogout }) => {
       >
         <span className='navbar-toggler-icon'></span>
       </button>
+      {isAuthenticated ? (
+        <>
+          <Link className='nav-link' to='/home'>
+            Home
+          </Link>
+          <Link className='nav-link' to='/userlist'>
+            User Details
+          </Link>
+        </>
+      ) : (
+        <li></li>
+      )}
       <div className='collapse navbar-collapse' id='navbarNav'>
         <ul className='navbar-nav ml-auto'>
           {isAuthenticated ? (
             <>
               <li className='nav-item'>
-                <Link className='nav-link' to='/home'>
-                  Home
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link className='nav-link' to='/userlist'>
-                  User Details
-                </Link>
-              </li>
-              <li className='nav-item'>
                 <button
                   className='btn btn-link nav-link'
                   onClick={handleLogout}
+                  style={{ color: 'red' }} // Inline CSS to set the text color to red
                 >
                   Logout
                 </button>
