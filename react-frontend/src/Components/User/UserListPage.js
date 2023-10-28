@@ -36,7 +36,7 @@ const UserListPage = () => {
   }, [])
 
   return (
-    <div>
+    <div class='container'>
       <h2>User List</h2>
       <ul>
         {users.map((user) => (

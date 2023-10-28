@@ -1,12 +1,15 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-const Navigation = ({ isAuthenticated, logout }) => {
+const Navigation = ({ isAuthenticated, onLogout }) => {
   const navigate = useNavigate()
 
   const handleLogout = () => {
     // Remove the JWT token from local storage
     localStorage.removeItem('jwtToken')
+
+    // Call the onLogout callback to update the state in the parent component
+    onLogout()
 
     // Redirect to the login page
     navigate('/login')
@@ -32,6 +35,11 @@ const Navigation = ({ isAuthenticated, logout }) => {
         <ul className='navbar-nav ml-auto'>
           {isAuthenticated ? (
             <>
+              <li className='nav-item'>
+                <Link className='nav-link' to='/home'>
+                  Home
+                </Link>
+              </li>
               <li className='nav-item'>
                 <Link className='nav-link' to='/userlist'>
                   User Details

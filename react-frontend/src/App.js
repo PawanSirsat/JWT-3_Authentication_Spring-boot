@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Route,
@@ -15,14 +15,28 @@ import UserListPage from './Components/User/UserListPage'
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
+  useEffect(() => {
+    // Check for a valid JWT token in local storage
+    const jwtToken = localStorage.getItem('jwtToken')
+    if (jwtToken) {
+      setIsAuthenticated(true)
+    } else {
+      setIsAuthenticated(false)
+    }
+  }, [])
+
   // Function to set isAuthenticated to true upon successful login
   const handleSuccessfulLogin = () => {
     setIsAuthenticated(true)
   }
+
   return (
     <Router>
       <div className='App'>
-        <Navigation isAuthenticated={isAuthenticated} />
+        <Navigation
+          isAuthenticated={isAuthenticated}
+          onLogout={() => setIsAuthenticated(false)}
+        />
         <Routes>
           <Route
             path='/login'

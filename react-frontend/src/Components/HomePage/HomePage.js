@@ -39,7 +39,7 @@ const HomePage = () => {
   }, [])
 
   return (
-    <div>
+    <div class='container'>
       <h2>Home Page</h2>
       <p>Welcome to the protected home page!</p>
       <p>User : {userData}</p> {/* Display userData object directly */}
