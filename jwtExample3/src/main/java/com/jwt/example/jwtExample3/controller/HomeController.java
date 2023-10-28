@@ -24,17 +24,18 @@ public class HomeController implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
+                .allowedHeaders("*")
                 .allowedOrigins("http://localhost:3000")  // Replace with the origin of your frontend app
                 .allowedMethods("GET", "POST", "PUT", "DELETE");
     }	
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/go")
-    public String home() {
-    	System.out.println("Go");
-        return "Hello World!";
-    }
+//    @RequestMapping("/go")
+//    public String home() {
+//    	System.out.println("Go");
+//        return "Hello World!";
+//    }
     
     @GetMapping("/users")
     @PreAuthorize("hasRole('USER')")

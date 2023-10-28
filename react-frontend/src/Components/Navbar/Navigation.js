@@ -1,7 +1,17 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Navigation = ({ isAuthenticated, logout }) => {
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    // Remove the JWT token from local storage
+    localStorage.removeItem('jwtToken')
+
+    // Redirect to the login page
+    navigate('/login')
+  }
+
   return (
     <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
       <Link className='navbar-brand' to='/'>
@@ -28,7 +38,10 @@ const Navigation = ({ isAuthenticated, logout }) => {
                 </Link>
               </li>
               <li className='nav-item'>
-                <button className='btn btn-link nav-link' onClick={logout}>
+                <button
+                  className='btn btn-link nav-link'
+                  onClick={handleLogout}
+                >
                   Logout
                 </button>
               </li>
