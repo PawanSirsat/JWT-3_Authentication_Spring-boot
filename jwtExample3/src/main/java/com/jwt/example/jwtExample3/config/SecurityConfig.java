@@ -11,9 +11,12 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 import com.jwt.example.jwtExample3.security.JwtAuthenticationEntryPoint;
 import com.jwt.example.jwtExample3.security.JwtAuthenticationFilter;
@@ -32,8 +35,12 @@ public class SecurityConfig {
 	
 	@Autowired
     private JwtAuthenticationEntryPoint point;
+	
     @Autowired
     private JwtAuthenticationFilter filter;
+    
+    @Autowired
+    private LogoutHandler logoutHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -47,10 +54,28 @@ public class SecurityConfig {
                 .authenticated()
                 .and().exceptionHandling(ex -> ex.authenticationEntryPoint(point))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+        .logout()
+        .logoutUrl("/auth/logout")
+        .addLogoutHandler(logoutHandler)
+        .logoutSuccessHandler(
+        		(request, response, authentication) -> 
+                 SecurityContextHolder.clearContext()
+        )
+        ;
         return http.build();
         
         
+    }
+    
+    @Bean
+    public LogoutHandler logoutHandler() {
+        return (request, response, authentication) -> {
+            // Clear the session cookies
+            request.getSession().invalidate();
+
+            // Clear any other session data here
+        };
     }
     
     @Bean

@@ -1,7 +1,6 @@
 package com.jwt.example.jwtExample3.controller;
 
 import org.slf4j.Logger;
-
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +26,8 @@ import com.jwt.example.jwtExample3.repo.UserRepository;
 import com.jwt.example.jwtExample3.security.JwtHelper;
 import com.jwt.example.jwtExample3.service.CustomerUserDetailService;
 import com.jwt.example.jwtExample3.service.UserService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @CrossOrigin
 @RestController
@@ -54,6 +55,7 @@ public class AuthController implements WebMvcConfigurer {
 
     @Autowired
     private JwtHelper helper;
+    
 
     private Logger logger = LoggerFactory.getLogger(AuthController.class);
 
@@ -84,6 +86,7 @@ public class AuthController implements WebMvcConfigurer {
         }
 
     }
+    
 
     @ExceptionHandler(BadCredentialsException.class)
     public String exceptionHandler() {
